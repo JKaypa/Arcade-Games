@@ -7,6 +7,7 @@
 @media (max-width: 990px) {
   .platforms{
     padding: 3px;
-    width: 80px;
+    width: 50px;
+    font-size: 12px;
   }
 }

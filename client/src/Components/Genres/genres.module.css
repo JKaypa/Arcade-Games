@@ -7,6 +7,8 @@
 @media (max-width: 990px) {
   .genres{
     padding: 3px;
-    width: 80px;
+    width: 50px;
+    font-size: 12px;
   }
+  
 }
