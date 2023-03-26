@@ -1,0 +1,12 @@
+.genres{
+  padding: 5px;
+  width: 170px;
+  border-radius: 3px;
+}
+
+@media (max-width: 990px) {
+  .genres{
+    padding: 3px;
+    width: 80px;
+  }
+}

@@ -1,0 +1,108 @@
+.form{
+  
+  width: 750px;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: hsla(250, 15%, 14%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  
+}
+
+.section{  
+  padding: 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+label{
+  color: white;
+  font-family: Orbitron;
+}
+
+.input{
+  padding: 8px;
+  border: none;
+  border-radius: 3px;
+}
+
+.file::before{
+  padding: 8px;
+  background-color: hsl(252, 85%, 55%);
+  color: white;
+  display: flex;
+  justify-content: center;
+  border-radius: 3px;
+  content: 'Upload image';
+}
+
+input[type="file"] {
+  display: none
+}
+
+.image{
+  margin: 10px;
+  width: 70px
+}
+
+.options{
+  display: flex;
+  justify-content: space-between;
+}
+
+.list{
+  margin-top: 5px;
+}
+
+.description{
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.submit{
+  padding: 20px;
+  margin-top: 10px;
+  color: white;
+  background-color: hsl(252, 85%, 55%);
+  border: none;
+  border-radius: 8px;
+  font-family: Orbitron;
+  transition: .3s;
+}
+
+.submit:hover{
+  letter-spacing: .25em;
+  color: white;
+  background-color: hsl(252, 85%, 55%);
+  box-shadow: 0 0 45px hsl(252, 85%, 55%);
+  border: 2px solid hsl(252, 85%, 85%);
+}
+
+@media (max-width: 800px){
+  .form{
+    width: 500px;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: hsla(250, 15%, 14%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 550px){
+  .form{
+    width: 320px;
+    padding: 40px;
+    border-radius: 20px;
+    background-color: hsla(250, 15%, 14%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+}

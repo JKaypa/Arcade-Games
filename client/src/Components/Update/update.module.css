@@ -1,0 +1,23 @@
+.update {
+  padding-top: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  padding: 10px;
+  font-family: "Press Start 2P", cursive;
+}
+
+.back {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-family: Orbitron, cursive;
+}
+
+.back:visited {
+  color: hsl(252, 85%, 55%);
+}
