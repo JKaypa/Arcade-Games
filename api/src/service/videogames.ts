@@ -43,7 +43,7 @@ export const findAll = async (name:Query) => {
       return {
         id: game.id,
         name: game.name,
-        image: `${config.picUrl}${game.image}`,
+        image: `${picUrl}${game.image}`,
         platforms: game.platforms,
         genres: game.genres.map((genre) => genre.name),
         rating: game.rating,
@@ -81,7 +81,7 @@ export const getAllFromApi = async (name: Query) => {
     }
     return apiGames;
   } else {
-    const { data } = await axios<Response>(`${apiUrl}&search=${name}&key=${key}`);
+    const { data } = await axios<Response>(`${apiUrl}?search=${name}&key=${key}`);
 
     const results = data.results;
 

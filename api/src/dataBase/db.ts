@@ -1,16 +1,14 @@
-import path from 'path'
-import {Sequelize} from 'sequelize-typescript'
-import config from '../config/config'
+import path from "path";
+import { Sequelize } from "sequelize-typescript";
+import config from "../config/config";
 
-const models = path.join(__dirname, '../models')
+const models = path.join(__dirname, "../models");
 export const sequelize = new Sequelize({
   logging: false,
-  dialect: 'postgres',
+  dialect: "postgres",
   database: config.dbName,
   username: config.dbUser,
   password: config.password,
-  storage: ':memory:',
+  storage: ":memory:",
   models: [models],
-})
-
-
+});
