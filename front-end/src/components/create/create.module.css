@@ -1,0 +1,28 @@
+.title{
+  color: white;
+  padding: 10px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.form{
+  
+  padding-top: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+@media (max-width: 800px){
+  .title{
+    font-size: medium;
+    padding-bottom: 20px;
+  }
+
+  .form{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
