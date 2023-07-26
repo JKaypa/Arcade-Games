@@ -1,24 +1,8 @@
-import cors from "cors";
-import fileupload from "express-fileupload";
-import express from "express";
-import config from "./config/config";
+import app from "./app";
 import { sequelize } from "./dataBase/db";
 import { getGenres } from "./controllers/genres.controller";
-import router from "./routes/videogames";
-import path from "path";
-
-
-
-
-const app = express();
+import config from "./config/config";
 const PORT = config.port;
-
-app.use(fileupload());
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
-app.use(express.json());
-app.use(cors());
-app.use("/api/videogames", router);
-
 
 
 (async function () {
@@ -32,3 +16,4 @@ app.use("/api/videogames", router);
     console.error({message: error}); 
   }
 })()
+

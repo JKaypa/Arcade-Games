@@ -11,7 +11,7 @@ const apiUrl = config.apiURL;
 const picUrl = config.picUrl
 
 
-export const findAll = async (name:Query) => {
+export const getAllFromDb = async (name:Query) => {
   if (!name) {
     const results = await Videogames.findAll({
       include: { model: Genres, through: { attributes: [] } },

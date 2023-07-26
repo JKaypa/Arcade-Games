@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createGame, deleteGame, findAll, getAllFromApi, getById, updateGame } from "../service/videogames";
+import { createGame, deleteGame, getAllFromApi, getAllFromDb, getById, updateGame } from "../service/videogames";
 import { Game } from "../../types";
 import { UploadedFile } from "express-fileupload";
 
@@ -9,11 +9,11 @@ export const getVideogames = async (req: Request, res: Response) => {
   try {
     const { name } = req.query;
     const fromApi = await getAllFromApi(name);
-    const fromDb = await findAll(name);
+    const fromDb = await getAllFromDb(name);
     const mixData = [...fromDb, ...fromApi];
-    res.status(200).json(mixData);
+    res.json(mixData);
   } catch (error) {
-    res.status(404).send({ error: error });
+    res.status(400).send({ error: error });    
   }
 };
 
@@ -35,7 +35,7 @@ export const postVideogames = async (req: Request, res: Response) => {
       res.status(200).json(gameCreated)
     }
   } catch (error) {
-    res.status(500).send({ error: 'Game was not created' });
+    res.status(500).send({ error: error });
   }
 }
 
