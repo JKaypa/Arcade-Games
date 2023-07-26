@@ -3,7 +3,6 @@ import { sequelize } from "./dataBase/db";
 import config from "./config/config";
 const PORT = config.port;
 
-
 (async function () {
   try {
     await sequelize.sync({force: false});
