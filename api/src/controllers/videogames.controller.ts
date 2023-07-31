@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import { createGame, deleteGame, getAllFromApi, getAllFromDb, getById, updateGame } from "../service/videogames";
-import { Game } from "../../types";
-import { UploadedFile } from "express-fileupload";
-
+import { createGame, deleteGame, getAll, getById, updateGame } from "../service/videogames";
 
 
 export const getVideogames = async (req: Request, res: Response) => {
   try {
-    const { name } = req.query;
-    const fromApi = await getAllFromApi(name);
-    const fromDb = await getAllFromDb(name);
-    const mixData = [...fromDb, ...fromApi];
-    res.json(mixData);
+    const { name, page } = req.query;
+    const {x} = req.body
+    x
+    const fromDb = await getAll(name, page);
+    res.json(fromDb);
+
   } catch (error) {
+
     res.status(400).send({ error: error });    
+    
   }
 };
 
@@ -23,14 +23,15 @@ export const getVideogameById = async (req: Request, res: Response) => {
     const game = await getById(id)
     res.status(200).json(game)
   } catch (error) {
-    res.status(404).send({ error: error });
+    res.status(404).send({Error: 'Videogame not found'});
   }
 };
 
 export const postVideogames = async (req: Request, res: Response) => {
   try { 
+    
     if(req.files && !(req.files.image instanceof Array)){
-      const file: UploadedFile = req.files.image;
+      const file = req.files.image;
       const gameCreated = await createGame(req.body, file)
       res.status(200).json(gameCreated)
     }
@@ -42,13 +43,10 @@ export const postVideogames = async (req: Request, res: Response) => {
 export const updateVideogame = async (req: Request, res: Response) => {  
   try {
     const { id } = req.params;
-    const data:Game = req.body;
-    const file: UploadedFile | undefined = 
-    req.files && !(req.files.image instanceof Array) ? 
-    req.files.image : undefined;
-    
-    const updated = await updateGame(id, data, file);
-    res.status(200).send(updated)
+    if (req.files && !(req.files.image instanceof Array)){
+      const updated = await updateGame(id, req.body, req.files.image);
+      res.send(updated)      
+    }
     
   } catch (error) {
     res.status(404).send(error);

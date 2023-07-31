@@ -1,11 +1,11 @@
 export interface Game {
   name: string;
-  genres?: string[];
+  genres: string[];
   platforms: string[];
+  image: string;
   rating: string;
-  released?: string;
-  description?: string;
-  image?: string;
+  released: string;
+  description: string;
 }
 
 interface platforms {
@@ -37,3 +37,10 @@ export type Query =
 export interface Response {
 results: apiGame[]
 } 
+
+
+export interface QueryOptions {
+  where?: {name: {[Op.iLike]: string}},
+  limit: number,
+  offset: number
+}

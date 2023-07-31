@@ -7,11 +7,7 @@ import {
   PrimaryKey,
   AllowNull,
   Unique,
-  BelongsToMany,
 } from "sequelize-typescript";
-import { Genres } from "./Genres";
-import { Arcade } from "./Arcade";
-
 
 
 @Table({ timestamps: false })
@@ -30,6 +26,10 @@ export class Videogames extends Model {
   @Column(DataType.ARRAY(DataType.STRING))
   platforms!: string[];
 
+  @AllowNull(false)
+  @Column(DataType.ARRAY(DataType.STRING))
+  genres!: string[];
+
   @Unique
   @AllowNull(false)
   @Column
@@ -43,11 +43,9 @@ export class Videogames extends Model {
   @Column(DataType.FLOAT)
   rating!: string;
   
-  @Unique
+
   @AllowNull(false)
-  @Column(DataType.STRING(1000))
+  @Column(DataType.TEXT())
   description!: string
 
-  @BelongsToMany(() => Genres, () => Arcade)
-  genres!: Genres[]
 }
