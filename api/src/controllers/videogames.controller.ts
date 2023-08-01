@@ -43,13 +43,12 @@ export const postVideogames = async (req: Request, res: Response) => {
 export const updateVideogame = async (req: Request, res: Response) => {  
   try {
     const { id } = req.params;
-    if (req.files && !(req.files.image instanceof Array)){
-      const updated = await updateGame(id, req.body, req.files.image);
-      res.send(updated)      
-    }
+    const file = req.files && req.files.image
+    const updated = await updateGame(id, req.body, file);
+    res.send(updated)    
     
   } catch (error) {
-    res.status(404).send(error);
+    res.status(404).send({error: 'Error updating videogame'});
   }
 };
 

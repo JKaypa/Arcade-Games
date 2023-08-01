@@ -43,12 +43,11 @@ export const createGame = async (data: Partial<Game>, file: UploadedFile) => {
 
 
 
-export const updateGame = async ( id:string, data:Game, file?:UploadedFile) => { 
-  if(file){
-    const fileName = file.name;
-    const path = "./src/uploads/" + fileName;
+export const updateGame = async ( id:string, data:Game, file?:UploadedFile | UploadedFile[] | null) => { 
+  if(file && !(file instanceof Array)){
+    const path = "./src/uploads/" + file.name;
     file.mv(path);
-    data.image = fileName;
+    data.image = picUrl + file.name;
   }
 
   try {
