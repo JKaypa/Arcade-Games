@@ -35,11 +35,6 @@ export const videogamesSlice = createSlice({
           && value.find(name => name === action.payload.value)
         })        
       }
-      else if(action.payload.value === 'database')
-          state.videogames = state.videogamesBackup.filter(game => typeof game.id === 'string')
-
-      else 
-          state.videogames = state.videogamesBackup.filter(game => typeof game.id === 'number')
     },
     order: (state, action: PayloadAction<string>) => {
       if(action.payload === 'ascending') 
