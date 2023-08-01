@@ -1,12 +1,12 @@
 import { Op } from "sequelize";
-// import config from "../config/config";
+import config from "../config/config";
 import { Videogames } from "../models/Videogames";
 import { UploadedFile } from "express-fileupload";
 import { Game, Query, QueryOptions} from "../../types";
 
 
 
-// const picUrl = config.picUrl
+const picUrl = config.picUrl
 
 
 export const getAll = async (name: Query, page: Query = 1) => {
@@ -34,7 +34,7 @@ export const createGame = async (data: Partial<Game>, file: UploadedFile) => {
   
   const path = "./src/uploads/" + file.name;
   file.mv(path);
-  data.image = file.name
+  data.image = picUrl + file.name
     
   await Videogames.create(data);
 
