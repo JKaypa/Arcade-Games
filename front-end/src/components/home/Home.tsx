@@ -9,7 +9,6 @@ import style from "./home.module.css";
 function Home() {
   const [genres, setGenres] = useState("");
   const [platforms, setPlatforms] = useState("");
-  const [store, setStore] = useState("");
   const [alph, setAlph] = useState("");
   const [rating, setRating] = useState("");
 
@@ -17,7 +16,7 @@ function Home() {
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const {name, value} = event.target
-    if (name === "genres" || name === "platforms" || name === "store") {
+    if (name === "genres" || name === "platforms") {
       const options = { name, value }      
       options && dispatch(filter(options));
     } else value && dispatch(order(value));
@@ -26,7 +25,6 @@ function Home() {
     name === "rating" ? setRating(value) : setRating("");
     name === "genres" ? setGenres(value) : setGenres("");
     name === "platforms" ? setPlatforms(value) : setPlatforms("");
-    name === "store" ? setStore(value) : setStore("");
   };
 
   return (
@@ -39,17 +37,6 @@ function Home() {
             platforms={platforms}
             render={true}
           />
-          <select
-            className={style.buttons}
-            name="store"
-            value={store}
-            onChange={handleChange}
-          >
-            <option value="">Filter by storage</option>
-            <option value="database">Database</option>
-            <option value="api">API</option>
-            <option value="All">All</option>
-          </select>
           <select
             className={style.buttons}
             name="alph"
