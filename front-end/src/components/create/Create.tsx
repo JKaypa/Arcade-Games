@@ -48,10 +48,9 @@ function Create() {
 
   const handleForm = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    // const isNum = (data: string) => !isNaN(parseInt(data))
 
-    if (name === "rating" && typeof value === "number") {
-      value > 0 && value <= 5
+    if (name === "rating") {
+      +value >= 0 && +value <= 5
         ? setForm({ ...form, rating: value })
         : alert("rating must be a number between 1 to 5");
     } else if (name !== "rating") {
