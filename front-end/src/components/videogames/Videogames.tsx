@@ -4,18 +4,12 @@ import { useAppSelector } from "../../hooks/redux.hooks";
 
 function Videogames() {
   const videogames = useAppSelector((state) => state.videogames.videogames);
-  
-  const allVideogames = useAppSelector((state) => state.videogames.videogamesBackup);
 
   
   return (
     <>
       <div className={style.cards}>
-        {!allVideogames.length ? (
-          <div className={style.loading}>
-            <span className={style.loadingInner}>Loading...</span>
-          </div>
-        ) : !videogames.length ? (
+        {!videogames.length ? (
           <div className={style.loading}>
             <span className={style.loadingInner}>Games not found</span>
           </div>
