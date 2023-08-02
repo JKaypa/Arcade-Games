@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux.hooks";
 import { NavLink } from "react-router-dom";
 import { allGames } from "../../store/actions";
@@ -9,10 +9,20 @@ function Navbar() {
   const [toggle, setToggle] = useState(false);
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      dispatch(allGames(name));
+    }, 500);
+
+    return () => {
+      clearTimeout(debounce)
+    }
+  
+  }, [name])
+  
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.value;
-    dispatch(allGames(name));
-    setName(name);
+    const value = event.target.value;
+    setName(value);
   };
 
   const active = ({ isActive }:{isActive: boolean}) => (isActive ? style.active : style.links);
