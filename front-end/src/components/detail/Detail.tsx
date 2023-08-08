@@ -40,7 +40,7 @@ function Detail() {
 
   const handleDelete = () => {
     id && dispatch(deleteGame(id));
-    dispatch(allGames());
+    dispatch(allGames({}));
   };
 
   return (

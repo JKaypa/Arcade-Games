@@ -112,7 +112,7 @@ function Update() {
     game.append("rating", form.rating);
     
     id && dispatch(updateGame({id, game}));
-    dispatch(allGames());
+    dispatch(allGames({}));
   };
 
   return (

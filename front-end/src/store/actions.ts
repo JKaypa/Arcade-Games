@@ -4,9 +4,9 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001/api/videogames";
 
-export const allGames = createAsyncThunk('get/videogames', async(name: string | undefined = '', thunkApi) => {
+export const allGames = createAsyncThunk('get/videogames', async({name = '', page = 1}: {name?: string, page?: number}, thunkApi) => {
   try {
-    const {data} = await axios<{rows: Videogame[]}>(`/?name=${name}`)
+    const {data} = await axios<{rows: Videogame[]}>(`/?name=${name}&page=${page}`)
     return data.rows
   } catch (error) {
     return thunkApi.rejectWithValue(error)

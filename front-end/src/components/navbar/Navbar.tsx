@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux.hooks";
 import { NavLink } from "react-router-dom";
-import { allGames } from "../../store/actions";
+// import { allGames } from "../../store/actions";
 import style from "./Navbar.module.css";
+import { name } from "../../store/videogamesSlice";
 
 function Navbar() {
-  const [name, setName] = useState("");
+  const [value, setValue] = useState("");
   const [toggle, setToggle] = useState(false);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      dispatch(allGames(name));
-    }, 500);
+  // useEffect(() => {
+  //   const debounce = setTimeout(() => {
+  //     dispatch(allGames({name}));
+  //   }, 500);
 
-    return () => {
-      clearTimeout(debounce)
-    }
+  //   return () => {
+  //     clearTimeout(debounce)
+  //   }
   
-  }, [name])
+  // }, [name])
   
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setName(value);
+    const inputValue = event.target.value;
+    setValue(inputValue);
+    dispatch(name(inputValue))
   };
 
   const active = ({ isActive }:{isActive: boolean}) => (isActive ? style.active : style.links);
@@ -38,7 +40,7 @@ function Navbar() {
         <input
           className={style.input}
           type="text"
-          value={name}
+          value={value}
           placeholder="Search by name"
           onChange={handleSearch}
         />
@@ -67,7 +69,7 @@ function Navbar() {
             <input
               className={style.input}
               type="text"
-              value={name}
+              value={value}
               placeholder="Search by name"
               onChange={handleSearch}
             />

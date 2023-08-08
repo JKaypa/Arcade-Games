@@ -1,11 +1,38 @@
 import { Link } from "react-router-dom";
 import style from "./videogame.module.css";
-import { useAppSelector } from "../../hooks/redux.hooks";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
+import { allGames } from "../../store/actions";
+import { clean } from "../../store/videogamesSlice";
+
+axios.defaults.baseURL = "http://localhost:3001/api/videogames";
+
 
 function Videogames() {
-  const videogames = useAppSelector((state) => state.videogames.videogames);
 
-  
+  const lastDivRef = useRef(null)
+  const numRef = useRef(0)
+  const dispatch = useAppDispatch()
+  const {name, videogames} = useAppSelector(state => state.videogames)
+
+  useEffect(() => {
+    const observed = new IntersectionObserver((entries) => {
+      if(entries[0].isIntersecting) {
+        let page = numRef.current += 1;
+        dispatch(allGames({page, name}))
+      }
+    })
+    lastDivRef.current && observed.observe(lastDivRef.current)
+
+    return () => {
+      observed.disconnect()
+      dispatch(clean())
+    }
+  }, [])
+
+
+
   return (
     <>
       <div className={style.cards}>
@@ -40,8 +67,10 @@ function Videogames() {
               </div>
             );
           })
+
         )}
       </div>
+      {<div ref={lastDivRef}></div>}
     </>
   );
 }

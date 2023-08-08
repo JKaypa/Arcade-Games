@@ -98,7 +98,7 @@ function Create() {
     data.append("rating", form.rating);
 
     dispatch(createGame(data));
-    dispatch(allGames());
+    dispatch(allGames({}));
     setForm({
       name: "",
       image: '',

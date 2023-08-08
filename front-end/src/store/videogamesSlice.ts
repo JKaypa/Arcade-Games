@@ -7,6 +7,7 @@ const initialState: State = {
   videogames: [],
   videogamesBackup: [],
   videogameDetail: null,
+  name: '',
   message: ''
 }
 
@@ -16,6 +17,12 @@ export const videogamesSlice = createSlice({
   name: "videogames",
   initialState,
   reducers: {
+    name: (state, action: PayloadAction<string>) => {
+      state.name = action.payload
+    },
+    clean: state => {
+      state.videogames = []
+    },
     restart: state => {
       state.videogameDetail = null
     },
@@ -52,7 +59,7 @@ export const videogamesSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(allGames.fulfilled, (state, action) => {
-        state.videogames = action.payload;
+        state.videogames = [...state.videogames, ...action.payload];
         state.videogamesBackup = action.payload
       })
 
@@ -75,5 +82,5 @@ export const videogamesSlice = createSlice({
 })
 
 
-export const { restart, restore, filter, order } = videogamesSlice.actions;
+export const { clean, name, restart, restore, filter, order } = videogamesSlice.actions;
 export default videogamesSlice.reducer;

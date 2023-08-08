@@ -4,6 +4,7 @@ export interface State {
   videogames: Videogame[];
   videogamesBackup: Videogame[];
   videogameDetail: Videogame | null;
+  name: string;
   message: string
 }
 
