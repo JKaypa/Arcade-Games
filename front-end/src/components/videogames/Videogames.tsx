@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import style from "./videogame.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { allGames } from "../../store/actions";
@@ -17,9 +17,11 @@ function Videogames() {
   const {name, videogames} = useAppSelector(state => state.videogames)
 
   useEffect(() => {
-    const observed = new IntersectionObserver((entries) => {
-      if(entries[0].isIntersecting) {
-        let page = numRef.current += 1;
+    const observed = new IntersectionObserver((entries) => {    
+      let page;  
+      if(entries[0].isIntersecting || name) {
+        page = numRef.current += 1;
+        console.log(page);        
         dispatch(allGames({page, name}))
       }
     })
@@ -28,10 +30,12 @@ function Videogames() {
     return () => {
       observed.disconnect()
       dispatch(clean())
+      numRef.current = 0
     }
-  }, [])
+  }, [name])
 
-
+  console.log(name);
+  
 
   return (
     <>

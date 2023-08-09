@@ -6,25 +6,24 @@ import style from "./Navbar.module.css";
 import { name } from "../../store/videogamesSlice";
 
 function Navbar() {
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState("");
   const [toggle, setToggle] = useState(false);
-  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   const debounce = setTimeout(() => {
-  //     dispatch(allGames({name}));
-  //   }, 500);
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      dispatch(name(value));
+    }, 500);
 
-  //   return () => {
-  //     clearTimeout(debounce)
-  //   }
+    return () => {
+      clearTimeout(debounce)
+    }
   
-  // }, [name])
+  }, [value])
   
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setValue(inputValue);
-    dispatch(name(inputValue))
   };
 
   const active = ({ isActive }:{isActive: boolean}) => (isActive ? style.active : style.links);
