@@ -4,10 +4,8 @@ import { createGame, deleteGame, getAll, getById, updateGame } from "../service/
 
 export const getVideogames = async (req: Request, res: Response) => {
   try {
-    const { name, page } = req.query;
-    const {x} = req.body
-    x
-    const fromDb = await getAll(name, page);
+    const { name, genre, platform, page } = req.query;
+    const fromDb = await getAll(name, genre, platform, page);
     res.json(fromDb);
 
   } catch (error) {
