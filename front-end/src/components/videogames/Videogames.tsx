@@ -1,12 +1,9 @@
 import { Link } from "react-router-dom";
 import style from "./videogame.module.css";
 import { useEffect, useRef } from "react";
-import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { allGames } from "../../store/actions";
 import { clean } from "../../store/videogamesSlice";
-
-axios.defaults.baseURL = "http://localhost:3001/api/videogames";
 
 
 function Videogames() {
