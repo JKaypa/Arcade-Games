@@ -10,7 +10,6 @@ axios.defaults.baseURL = "http://localhost:3001/api/videogames";
 
 
 function Videogames() {
-
   const lastDivRef = useRef(null)
   const numRef = useRef(0)
   const dispatch = useAppDispatch()
@@ -18,24 +17,21 @@ function Videogames() {
 
   useEffect(() => {
     const observed = new IntersectionObserver((entries) => {    
-      let page;  
       if(entries[0].isIntersecting || name) {
-        page = numRef.current += 1;
-        console.log(page);        
-        dispatch(allGames({page, name}))
+        let page = numRef.current += 1;      
+        dispatch(allGames({page, name}))        
       }
-    })
+    },{rootMargin: '250px'})
     lastDivRef.current && observed.observe(lastDivRef.current)
-
+    
     return () => {
       observed.disconnect()
       dispatch(clean())
       numRef.current = 0
     }
   }, [name])
-
-  console.log(name);
   
+  console.log(videogames);
 
   return (
     <>
