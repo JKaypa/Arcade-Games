@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks/redux.hooks";
-import { filter, order } from "../../store/videogamesSlice";
+import { order } from "../../store/videogamesSlice";
 import Genres from "../genres/Genres";
 import Platforms from "../platforms/Platforms";
 import Videogames from "../videogames/Videogames";
 import style from "./home.module.css";
 
 function Home() {
-  const [genres, setGenres] = useState("");
-  const [platforms, setPlatforms] = useState("");
+  const [genre, setGenre] = useState("");
+  const [platform, setPlatform] = useState("");
   const [alph, setAlph] = useState("");
   const [rating, setRating] = useState("");
 
@@ -16,25 +16,20 @@ function Home() {
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const {name, value} = event.target
-    if (name === "genres" || name === "platforms") {
-      const options = { name, value }      
-      options && dispatch(filter(options));
-    } else value && dispatch(order(value));
+    if (name === "genres") setGenre(value)  
+    else if (name === 'platforms') setPlatform(value)
+    else value && dispatch(order(value));
 
-    name === "alph" ? setAlph(value) : setAlph("");
-    name === "rating" ? setRating(value) : setRating("");
-    name === "genres" ? setGenres(value) : setGenres("");
-    name === "platforms" ? setPlatforms(value) : setPlatforms("");
   };
 
   return (
     <>
       <div className={style.bigContainer}>
         <div className={style.filters}>
-          <Genres handleChange={handleChange} genres={genres} render={true} />
+          <Genres handleChange={handleChange} genres={genre} render={true} />
           <Platforms
             handleChange={handleChange}
-            platforms={platforms}
+            platforms={platform}
             render={true}
           />
           <select
@@ -58,7 +53,7 @@ function Home() {
             <option value="descending">Descending</option>
           </select>
         </div>
-        <Videogames/>
+        <Videogames genre={genre} platform={platform}/>
       </div>
     </>
   );

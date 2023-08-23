@@ -29,20 +29,6 @@ export const videogamesSlice = createSlice({
     restore: state => {
       state.message = ''
     },
-    filter: (state, action: PayloadAction<Options>) => {
-      if(action.payload.value === 'All') 
-          state.videogames = state.videogamesBackup
-
-      else if(action.payload.name === 'genres' || action.payload.name === 'platforms') {
-        state.videogames = state.videogamesBackup.filter(game => {
-          type key = keyof typeof game;
-          const prop = action.payload.name as key
-          const value = game[prop]
-          return Array.isArray(value)
-          && value.find(name => name === action.payload.value)
-        })        
-      }
-    },
     order: (state, action: PayloadAction<string>) => {
       if(action.payload === 'ascending') 
           state.videogames.sort((a, b) => parseInt(a.rating) - parseInt(b.rating))
@@ -82,5 +68,5 @@ export const videogamesSlice = createSlice({
 })
 
 
-export const { clean, name, restart, restore, filter, order } = videogamesSlice.actions;
+export const { clean, name, restart, restore, order } = videogamesSlice.actions;
 export default videogamesSlice.reducer;

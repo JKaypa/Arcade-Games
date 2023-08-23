@@ -6,52 +6,30 @@ import { Game, Query, QueryOptions } from "../../types";
 
 const picUrl = config.picUrl;
 
-export const getAll = async ( name: Query, genre: Query, platform: Query, page: Query = 1 ) => {
+export const getAll = async (
+  name: Query,
+  genre: Query,
+  platform: Query,
+  page: Query = 1
+) => {
   page = parseInt(page);
   const limit = 12;
   const options: QueryOptions = { offset: (page - 1) * limit, limit: limit };
-  if (name && genre && platform) {
-    options.where = {
-      [Op.and]: [
-        { name: { [Op.iLike]: `${name}%` } },
-        { genres: { [Op.contains]: [genre] } },
-        { platforms: { [Op.contains]: [platform] } },
-      ],
-    };
-  } 
-  else if (name && genre) {
-    options.where = {
-      [Op.and]: [
-        { name: { [Op.iLike]: `${name}%` } },
-        { genres: { [Op.contains]: [genre] } },
-      ],
-    };
-  } 
-  else if (name && platform) {
-    options.where = {
-      [Op.and]: [
-        { name: { [Op.iLike]: `${name}%` } },
-        { platforms: { [Op.contains]: [platform] } },
-      ],
-    };
-  } 
-  else if (genre && platform) {
-    options.where = {
-      [Op.and]: [
-        { genres: { [Op.contains]: [genre] } },
-        { platforms: { [Op.contains]: [platform] } },
-      ],
-    };
+
+  if (name) {
+    options.where
+      ? (options.where.name = { [Op.iLike]: `${name}%` })
+      : (options.where = { name: { [Op.iLike]: `${name}%` } });
+  } if (genre) {
+    options.where
+      ? (options.where.genres = { [Op.contains]: [genre] })
+      : (options.where = { genres: { [Op.contains]: [genre] } });
+  } if (platform) {
+    options.where
+      ? (options.where.platforms = { [Op.contains]: [platform] })
+      : (options.where = { platforms: { [Op.contains]: [platform] } });
   }
-  else if (name || genre || platform) {
-    options.where = {
-      [Op.or]: [
-        { name: { [Op.iLike]: `${name}%` } },
-        { genres: { [Op.contains]: [genre] } },
-        { platforms: { [Op.contains]: [platform] } },
-      ],
-    };
-  }
+
   const { count, rows } = await Videogames.findAndCountAll(options);
   return { page, count, rows };
 };
@@ -94,3 +72,49 @@ export const deleteGame = async (id: string) => {
   await Videogames.destroy({ where: { id } });
   return "Videogame deleted succesfully!";
 };
+
+// if (name && genre && platform) {
+//   options.where = {
+//     [Op.and]: [
+//       { name: { [Op.iLike]: `${name}%` } },
+//       { genres: { [Op.contains]: [genre] } },
+//       { platforms: { [Op.contains]: [platform] } },
+//     ],
+//   };
+// }
+// else if (name && genre) {
+//   options.where = {
+//     [Op.and]: [
+//       { name: { [Op.iLike]: `${name}%` } },
+//       { genres: { [Op.contains]: [genre] } },
+//     ],
+//   };
+// }
+// else if (name && platform) {
+//   options.where = {
+//     [Op.and]: [
+//       { name: { [Op.iLike]: `${name}%` } },
+//       { platforms: { [Op.contains]: [platform] } },
+//     ],
+//   };
+// }
+// else if (genre && platform) {
+//   options.where = {
+//     [Op.and]: [
+//       { genres: { [Op.contains]: [genre] } },
+//       { platforms: { [Op.contains]: [platform] } },
+//     ],
+//   };
+// }
+// else if (name || genre || platform) {
+
+//   console.log(name, genre, platform);
+
+//   options.where = {
+//     [Op.or]: [
+//       { name: { [Op.iLike]: `${name}%` } },
+//       { genres: { [Op.contains]: [genre] } },
+//       { platforms: { [Op.contains]: [platform] } },
+//     ],
+//   };
+// }

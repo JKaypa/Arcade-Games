@@ -6,17 +6,19 @@ import { allGames } from "../../store/actions";
 import { clean } from "../../store/videogamesSlice";
 
 
-function Videogames() {
+function Videogames({genre, platform}: {genre:string | undefined, platform:string | undefined }) {
   const lastDivRef = useRef(null)
   const numRef = useRef(0)
   const dispatch = useAppDispatch()
   const {name, videogames} = useAppSelector(state => state.videogames)
-
+  
+  
   useEffect(() => {
     const observed = new IntersectionObserver((entries) => {    
-      if(entries[0].isIntersecting || name) {
+      if(entries[0].isIntersecting || name || genre || platform) {
         let page = numRef.current += 1;      
-        dispatch(allGames({page, name}))        
+        console.log(name, genre, platform);
+        dispatch(allGames({name, genre, platform, page}))        
       }
     },{rootMargin: '250px'})
     lastDivRef.current && observed.observe(lastDivRef.current)
@@ -26,9 +28,8 @@ function Videogames() {
       dispatch(clean())
       numRef.current = 0
     }
-  }, [name])
+  }, [name, genre, platform])
   
-  console.log(videogames);
 
   return (
     <>

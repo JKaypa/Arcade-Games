@@ -40,7 +40,7 @@ results: apiGame[]
 
 
 export interface QueryOptions {
-  where?: {[Op.or]: [{name: {[Op.iLike]: string}}, {genres: {[Op.contains]: [string]}}, {platforms: {[Op.contains]: [string]}}]},
+  where?: {name?: {[Op.iLike]: string}, genres?: {[Op.contains]: [string]}, platforms?: {[Op.contains]: [string]}},
   limit: number,
   offset: number
 }
