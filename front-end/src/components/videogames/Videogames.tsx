@@ -17,7 +17,6 @@ function Videogames({genre, platform}: {genre:string | undefined, platform:strin
     const observed = new IntersectionObserver((entries) => {    
       if(entries[0].isIntersecting || name || genre || platform) {
         let page = numRef.current += 1;      
-        console.log(name, genre, platform);
         dispatch(allGames({name, genre, platform, page}))        
       }
     },{rootMargin: '250px'})
