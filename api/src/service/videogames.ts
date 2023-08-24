@@ -10,6 +10,7 @@ export const getAll = async (
   name: Query,
   genre: Query,
   platform: Query,
+  rating: Query,
   page: Query = 1
 ) => {
   page = parseInt(page);
@@ -20,14 +21,19 @@ export const getAll = async (
     options.where
       ? (options.where.name = { [Op.iLike]: `${name}%` })
       : (options.where = { name: { [Op.iLike]: `${name}%` } });
-  } if (genre) {
+  } 
+  if (genre) {
     options.where
       ? (options.where.genres = { [Op.contains]: [genre] })
       : (options.where = { genres: { [Op.contains]: [genre] } });
-  } if (platform) {
+  } 
+  if (platform) {
     options.where
       ? (options.where.platforms = { [Op.contains]: [platform] })
       : (options.where = { platforms: { [Op.contains]: [platform] } });
+  }
+  if (rating){
+    options.order = [['rating', rating]]
   }
 
   const { count, rows } = await Videogames.findAndCountAll(options);

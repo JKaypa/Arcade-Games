@@ -6,7 +6,7 @@ import { allGames } from "../../store/actions";
 import { clean } from "../../store/videogamesSlice";
 
 
-function Videogames({genre, platform}: {genre:string | undefined, platform:string | undefined }) {
+function Videogames({genre, platform, rating}: {genre:string | undefined, platform:string | undefined, rating: string | undefined }) {
   const lastDivRef = useRef(null)
   const numRef = useRef(0)
   const dispatch = useAppDispatch()
@@ -15,9 +15,9 @@ function Videogames({genre, platform}: {genre:string | undefined, platform:strin
   
   useEffect(() => {
     const observed = new IntersectionObserver((entries) => {    
-      if(entries[0].isIntersecting || name || genre || platform) {
+      if(entries[0].isIntersecting || name || genre || platform || rating) {
         let page = numRef.current += 1;      
-        dispatch(allGames({name, genre, platform, page}))        
+        dispatch(allGames({name, genre, platform, rating, page}))        
       }
     },{rootMargin: '250px'})
     lastDivRef.current && observed.observe(lastDivRef.current)
@@ -27,7 +27,7 @@ function Videogames({genre, platform}: {genre:string | undefined, platform:strin
       dispatch(clean())
       numRef.current = 0
     }
-  }, [name, genre, platform])
+  }, [name, genre, platform, rating])
   
 
   return (

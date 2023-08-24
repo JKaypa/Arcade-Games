@@ -38,7 +38,7 @@ function Home() {
             <option value="DESC">Descending</option>
           </select>
         </div>
-        <Videogames genre={genre} platform={platform}/>
+        <Videogames genre={genre} platform={platform} rating={rating}/>
       </div>
     </>
   );
