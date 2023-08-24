@@ -14,7 +14,7 @@ export const getAll = async (
 ) => {
   page = parseInt(page);
   const limit = 12;
-  const options: QueryOptions = { offset: (page - 1) * limit, limit: limit };
+  const options: QueryOptions = { offset: (page - 1) * limit, limit: limit, order: [['name', 'ASC']] };
 
   if (name) {
     options.where

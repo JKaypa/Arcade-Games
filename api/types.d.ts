@@ -42,5 +42,6 @@ results: apiGame[]
 export interface QueryOptions {
   where?: {name?: {[Op.iLike]: string}, genres?: {[Op.contains]: [string]}, platforms?: {[Op.contains]: [string]}},
   limit: number,
-  offset: number
+  offset: number,
+  order: [[string, string]]
 }
