@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Genres from "../genres/Genres";
 import Platforms from "../platforms/Platforms";
 import Videogames from "../videogames/Videogames";
@@ -8,13 +8,31 @@ function Home() {
   const [genre, setGenre] = useState("");
   const [platform, setPlatform] = useState("");
   const [rating, setRating] = useState("");
+  const genreItem = localStorage.getItem('genre')
+  const platformItem = localStorage.getItem('platform')
+  const ratingItem = localStorage.getItem('rating')
 
+  useEffect(() => {
+    genreItem && setGenre(genreItem)
+    platformItem && setPlatform(platformItem)
+    ratingItem && setRating(ratingItem)
+  }, [])
+  
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const {name, value} = event.target
-    if (name === "genres") setGenre(value)  
-    else if (name === 'platforms') setPlatform(value)
-    else setRating(value)
+    if (name === "genres"){ 
+      setGenre(value)
+      localStorage.setItem('genre', value)
+    }
+    else if (name === 'platforms'){
+      setPlatform(value)
+      localStorage.setItem('platform', value)
+    }
+    else{
+      setRating(value)
+      localStorage.setItem('rating', value)
+    }
   };
 
   return (
