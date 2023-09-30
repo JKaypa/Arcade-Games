@@ -22,8 +22,9 @@ function Detail() {
 
     return () => {
       if (boolRef.current) {
-        dispatch(restart());
+        dispatch(restart())
       }
+      dispatch(restore())
     };
   }, [dispatch, id]);
 

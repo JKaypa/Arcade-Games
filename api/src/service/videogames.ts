@@ -48,7 +48,7 @@ export const createGame = async (data: Partial<Game>, file: UploadedFile) => {
   const path = "./src/uploads/" + file.name;
   file.mv(path);
   data.image = picUrl + file.name;
-
+  console.log(data.image)
   await Videogames.create(data);
 
   return "Videogame created succesfully. Go to home page to see it.";

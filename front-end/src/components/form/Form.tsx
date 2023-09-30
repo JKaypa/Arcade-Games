@@ -1,4 +1,4 @@
-import { FormProps, Props } from "../../types";
+import { FormProps } from "../../types";
 import Genres from "../genres/Genres";
 import Platforms from "../platforms/Platforms";
 import style from "./form.module.css";
@@ -18,7 +18,7 @@ function Form({
   description,
 }: FormProps) {
 
-  const renderImg = (img: string | File) => {
+  const renderImg = (img: string | File ) => {
     if(typeof img === 'object') return URL.createObjectURL(img)
     return img
   };
@@ -28,7 +28,7 @@ function Form({
       <form className={style.form} onSubmit={handleSubmit}>
         <div className={style.section}>
           <label>Title</label>
-          <input
+          <input  
             className={style.input}
             onChange={handleForm}
             type="text"
@@ -47,7 +47,7 @@ function Form({
             placeholder="Upload image"
             name="image"
           />
-          <img className={style.image} src={renderImg(image)} alt={name} />
+          <img className={style.image} src={renderImg(image)} alt={''} />
         </div>
         <div className={style.options}>
           <div className={style.section}>
